@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartSchool.API.Data;
 using SmartSchool.API.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,13 @@ namespace SmartSchool.API.Controllers
     [ApiController]
     public class AlunoController : ControllerBase
     {
+        private readonly SmartContext _context;
+        public AlunoController(SmartContext context) 
+        {
+            _context = context;
+        }
+
+        /*
         public List<Aluno> Alunos = new List<Aluno>() {
             new Aluno()
             {
@@ -35,19 +43,20 @@ namespace SmartSchool.API.Controllers
                 Telefone =  "78787878"
             },
         };
+        */
 
-        public AlunoController() { }
+        
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Alunos);
+            return Ok(_context.Alunos);
         }
 
         [HttpGet("byId/{id}")]
         public IActionResult GetById(int id)
         {
-            var aluno = Alunos.FirstOrDefault(a => a.Id == id);
+            var aluno = _context.Alunos.FirstOrDefault(a => a.Id == id);
             if (aluno == null)
             {
                 return BadRequest("Aluno não foi encontrado");
@@ -58,7 +67,7 @@ namespace SmartSchool.API.Controllers
         [HttpGet("ByName")]
         public IActionResult GetByName(string nome, string sobreNome)
         {
-            var aluno = Alunos.FirstOrDefault(a => 
+            var aluno = _context.Alunos.FirstOrDefault(a => 
                 a.Nome.Contains(nome) && a.SobreNome.Contains(sobreNome)
             );
 
