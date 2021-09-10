@@ -46,8 +46,6 @@ namespace SmartSchool.API.Controllers
         };
         */
 
-        
-
         [HttpGet]
         public IActionResult Get()
         {
