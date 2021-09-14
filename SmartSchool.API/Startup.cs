@@ -30,7 +30,7 @@ namespace SmartSchool.API
                 context => context.UseSqlServer(Configuration.GetConnectionString("Default"))
             );
 
-            services.AddScoped<IRepository, Repository >();
+            services.AddScoped<IRepository, Repository>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(
